@@ -16,11 +16,11 @@ const GameOver = (props) => {
       <View style={styles.ImageContainer}>
         <Image
           style={styles.Image}
-          //  source={require("../assets/success.png")}
-          source={{
-            uri:
-              "https://my-server-problemspotter.herokuapp.com/websiteLogo/newlogo.jpg",
-          }}
+          source={require("../assets/success.png")}
+          // source={{
+          //   uri:
+          //     "https://my-server-problemspotter.herokuapp.com/websiteLogo/newlogo.jpg",
+          // }}
         />
       </View>
       <Text>

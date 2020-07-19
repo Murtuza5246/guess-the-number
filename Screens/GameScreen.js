@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Card from "../Screens/Card";
 import NumberContainer from "../components/NumberContainer";
 import TitleText from "../components/TitleText";
+import BodyText from "../components/BodyText";
 import MainButton from "../components/MainButton";
 
 const generateRandomBetween = (min, max, exclude) => {
@@ -56,6 +57,15 @@ const GameScreen = ({ userChoice, onGameOver }) => {
     setRounds((prev) => prev + 1);
   };
 
+  const renderListItem = (value, index) => {
+    return (
+      <View key={value} style={styles.individualItemView}>
+        <BodyText>#{index}</BodyText>
+        <BodyText>{value}</BodyText>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.screen}>
       <TitleText>Opponents Guess</TitleText>
@@ -70,15 +80,13 @@ const GameScreen = ({ userChoice, onGameOver }) => {
           <Ionicons name="md-remove" size={24} />
         </MainButton>
       </Card>
-      <ScrollView>
-        <Card>
-          {pastGuess.map((guess) => (
-            <View key={guess}>
-              <Text>{guess}</Text>
-            </View>
-          ))}
-        </Card>
-      </ScrollView>
+      <View style={styles.scrollContainer}>
+        <ScrollView contentContainerStyle={styles.list}>
+          {pastGuess.map((guess, index) =>
+            renderListItem(guess, pastGuess.length - index)
+          )}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -90,6 +98,26 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     alignItems: "center",
+  },
+  individualItem: {
+    width: "80%",
+  },
+  scrollContainer: {
+    flex: 1,
+    width: "80%",
+  },
+  list: {
+    flexGrow: 1,
+    justifyContent: "flex-end",
+  },
+  individualItemView: {
+    flexDirection: "row",
+    padding: 15,
+    width: "100%",
+    borderWidth: 3,
+    borderColor: "#ccc",
+    marginVertical: 10,
+    justifyContent: "space-between",
   },
   buttonContainer: {
     flexDirection: "row",
