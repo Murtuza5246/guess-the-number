@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Button,
   TouchableWithoutFeedback,
@@ -12,12 +11,15 @@ import {
 //Components
 import Card from "./Card";
 import Input from "../components/Input";
+import BodyText from "../components/BodyText";
+import TitleText from "../components/TitleText";
+import MainButton from "../components/MainButton";
 
 //theme
 import color from "../constant/color";
 import NumberContainer from "../components/NumberContainer";
 
-export default StartGameScreen = () => {
+export default StartGameScreen = (props) => {
   const [enteredNumber, setEnteredNumber] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [chosenNumber, setChosenNumber] = useState();
@@ -43,13 +45,16 @@ export default StartGameScreen = () => {
     setChosenNumber(selectedNumber);
     Keyboard.dismiss();
   };
+
   let confirmedText;
   if (confirm) {
     confirmedText = (
       <Card style={styles.confirmText}>
-        <Text>You Selected</Text>
+        <BodyText>You Selected</BodyText>
         <NumberContainer>{chosenNumber}</NumberContainer>
-        <Button title="START GAME" />
+        <MainButton onPress={() => props.startGame(chosenNumber)}>
+          START GAME
+        </MainButton>
       </Card>
     );
   }
@@ -61,10 +66,10 @@ export default StartGameScreen = () => {
       }}
     >
       <View style={styles.screen}>
-        <Text style={styles.title}>The Game Screen Is Here</Text>
+        <TitleText style={styles.title}>Start new game</TitleText>
 
         <Card style={styles.InputContainer}>
-          <Text>Select The Number</Text>
+          <BodyText style={styles.selectNumber}>Select The Number</BodyText>
           <Input
             keyboardType="number-pad"
             maxLength={2}
@@ -103,13 +108,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
     marginVertical: 10,
   },
   InputContainer: {
     width: 300,
     maxWidth: "80%",
     alignItems: "center",
+  },
+  selectNumber: {
+    marginVertical: 10,
   },
   ButtonContainer: {
     width: "100%",
